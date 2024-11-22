@@ -1,95 +1,165 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="autor" content = "Lucas Joglar y Lucía Andrés"/>
-    <title>El juego de la vida</title>
-    <!--<link rel="stylesheet" href="Fabrica.css">-->
+    <title>Diseño de Canvas</title>
     <style>
-    	body{
-    		background-color:#4D4847;
-    	}
-    	.flex{
-    		display: flex;
-    	}
-    	.lateral{
-    		display: flex;
-    		justify-content: left;
-    		text-align: left;
-    	}
-    	.contenedora {
-            text-align: center;
-            padding: 20px 0;
-            justify-content: center;
+        body {
+            background-color: #4D4847;
+            color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
-         .encabezado { /*este, top-image y top-image:hover son para las imágenes que salen arriba*/
+
+        .encabezado {
             display: flex;
             justify-content: center;
             gap: 20px;
             padding: 15px;
             background-color: #8BAAAD;
-            color: #000F08 ; 
-            border-bottom: 3px solid #1C3738; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            color: #000F08;
+            border-bottom: 3px solid #1C3738;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-    	.switch { /*lo que queda dentro de style es para el slider de la continuidad*/
+
+        .contenedora {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .canvas-lateral {
             position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
+            width: 200px;
+            height: 400px;
+            border: 2px solid #8BAAAD;
         }
 
-        .slider {
+        #texto-lateral {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #000F08;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .canvas-principal {
+            position: relative;
+            width: 700px;
+            height: 400px;
+            border: 2px solid black;
+        }
+
+        #cuadrado {
+            position: absolute;
+            width: 150px;
+            height: 100px;
+            background-color: #8BAAAD;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #slider {
+            width: 100px;
+        }
+        .canvas-inferior {
+            position: relative;
+            margin: 20px auto;
+            width: 700px;
+            height: 100px;
+            border: 2px solid black;
+        }
+
+        .botones {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #8BAAAD;
+            border: 2px solid #1C3738;
+            color: #000F08;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #1f2421;
-            transition: .4s;
-            border-radius: 34px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: pink;
-            transition: .4s;
-            border-radius: 50%;
+        button:hover {
+            background-color: #1C3738;
+            color: white;
         }
-
-        input:checked + .slider {
-            background-color: red; /* Cambio de color cuando está activado */
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-	</style>
-    
+    </style>
+</head>
 <body>
-	
-	<div class="contenedora">
-		<div class="Encabezado">
-			<h1>CONWAY'S GAME OF LIFE BY LUCAS JOGLAR, &nbsp LUCIA&nbsp ANDRES &nbsp & &nbspEL CAST DE LADYBUG </h1>
-		</div>
-		<br>
-		<div class="flex">
-		<div class="lateral">
-				 <canvas id="lienzo" width="300" height="400" style="border: 2px solid #8BAAAD"></canvas>
-			</div>
-			
-			   <canvas id="lienzo2" width="700" height="600" style="border: 2px solid black"></canvas>
-		</div>
-	   <label class="switch">
-	        <input type="checkbox" id="sliderCheckbox">
-	        <span class="slider"></span>
-	    </label>
-	</div>
+    <div class="encabezado">
+            <h1>CONWAY'S GAME OF LIFE BY LUCAS JOGLAR  & LUCIA ANDRES</h1>
+    </div>
+    <br>
+
+    <div class="contenedora">
+        <div class="canvas-lateral">
+            <div id="texto-lateral">
+                Instrucciones:<br>
+                No se cuales eran, luego las pongo
+            </div>
+        </div>
+
+        <div class="canvas-principal">
+            <canvas id="canvasCentral" width="700" height="400"></canvas>
+            <div id="cuadrado">
+                <input id="slider" type="range" min="0" max="100" value="50">
+            </div>
+        </div>
+
+        <div class="canvas-lateral"></div>
+    </div>
+
+    <div class="canvas-inferior">
+        <div class="botones">
+            <button>Jugar</button>
+            <button>Limpiar</button>
+            <button>No me acuerdo</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvasCentral');
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#8BAAAD';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#000F08';
+        ctx.lineWidth = 1;
+
+       /* for (let x = 0; x <= canvas.width; x += 50) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+
+        for (let y = 0; y <= canvas.height; y += 50) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }*/
+    </script>
 </body>
 </html>
