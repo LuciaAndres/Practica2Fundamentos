@@ -1,0 +1,95 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="autor" content = "Lucas Joglar y Lucía Andrés"/>
+    <title>El juego de la vida</title>
+    <!--<link rel="stylesheet" href="Fabrica.css">-->
+    <style>
+    	body{
+    		background-color:#4D4847;
+    	}
+    	.flex{
+    		display: flex;
+    	}
+    	.lateral{
+    		display: flex;
+    		justify-content: left;
+    		text-align: left;
+    	}
+    	.contenedora {
+            text-align: center;
+            padding: 20px 0;
+            justify-content: center;
+        }
+         .encabezado { /*este, top-image y top-image:hover son para las imágenes que salen arriba*/
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            background-color: #8BAAAD;
+            color: #000F08 ; 
+            border-bottom: 3px solid #1C3738; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+    	.switch { /*lo que queda dentro de style es para el slider de la continuidad*/
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #1f2421;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: pink;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: red; /* Cambio de color cuando está activado */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+	</style>
+    
+<body>
+	
+	<div class="contenedora">
+		<div class="Encabezado">
+			<h1>CONWAY'S GAME OF LIFE BY LUCAS JOGLAR, &nbsp LUCIA&nbsp ANDRES &nbsp & &nbspEL CAST DE LADYBUG </h1>
+		</div>
+		<br>
+		<div class="flex">
+		<div class="lateral">
+				 <canvas id="lienzo" width="300" height="400" style="border: 2px solid #8BAAAD"></canvas>
+			</div>
+			
+			   <canvas id="lienzo2" width="700" height="600" style="border: 2px solid black"></canvas>
+		</div>
+	   <label class="switch">
+	        <input type="checkbox" id="sliderCheckbox">
+	        <span class="slider"></span>
+	    </label>
+	</div>
+</body>
+</html>
