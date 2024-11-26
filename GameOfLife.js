@@ -250,9 +250,9 @@ class Mundo
 
         if(cell.isAlive)
         {
-            timeDisplay.textContent = `Time Alive: ${cell.timeAlive}`;
+            textoOut.textContent = `Time Alive: ${cell.timeAlive}`;
         } else {
-            timeDisplay.textContent = `Time Alive: ${cell.timeDead}`;
+            textoOut.textContent = `Time Alive: ${cell.timeDead}`;
         }
     }
 

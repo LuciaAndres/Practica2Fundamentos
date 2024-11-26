@@ -50,13 +50,16 @@
         }
 
         .switch-container {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -20%);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            align-items: center; /* Alinea al centro horizontalmente */
+            justify-content: center; /* Centra verticalmente */
+            gap: 10px; /* Ajusta el espacio entre los elementos */
+            color: #000F08;
+            font-size: 18px;
+            font-weight: bold;
+            height: 100%; /* Ocupar toda la altura del contenedor */
+            text-align: center;
         }
 
         .switch {
@@ -127,7 +130,17 @@
             font-weight: bold;
             margin-top: 10px;
         }
-
+        .textocanvas2 {
+            position:absolute;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            left: 38%;
+        }
         .canvas-inferior {
             position: relative;
             margin: 20px auto;
@@ -192,6 +205,7 @@
         <div class="canvas-lateral">
             <div class="switch-container">
                 <br><br><br><br>
+                Encender/Apagar grid
                 <label for="toggleGrid" class="switch">
                     <input type="checkbox" id="toggleGrid" checked>
                     <span class="slider"></span>
@@ -208,6 +222,7 @@
         </div>
     </div>
     <div class="canvas-inferior">
+        <div id="tiempo" style ="textocanvas2"></div>
         <div class="botones">
             <button id="Reiniciar">Reiniciar</button>
             <button id="Jugar">Jugar</button>
