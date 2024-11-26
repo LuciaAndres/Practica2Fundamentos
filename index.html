@@ -177,8 +177,12 @@
 
         <div class="canvas-principal">
             <canvas id="canvasCentral" width="700" height="400"></canvas>
-            <div id="cuadrado">
-                <input id="slider" type="range" min="0" max="100" value="50">
+                <div id="cuadrado">
+                    <div id="fpsControl" style ="text-align: center;">
+                        <label for="fpsSlider">FPS: <span id="fpsValue">10</span></label>
+                        <br>
+                        <input type="range" id="fpsSlider" min="1" max="60" value="10">
+                    </div>
                 <div id="textocanvas">
                     Iteraciones: x
                 </div>
@@ -188,8 +192,8 @@
         <div class="canvas-lateral">
             <div class="switch-container">
                 <br><br><br><br>
-                <label class="switch">
-                    <input type="checkbox">
+                <label for="toggleGrid" class="switch">
+                    <input type="checkbox" id="toggleGrid" checked>
                     <span class="slider"></span>
                 </label>
                 <label class="switch">
@@ -205,8 +209,8 @@
     </div>
     <div class="canvas-inferior">
         <div class="botones">
-            <button id="Jugar">Jugar</button>
             <button id="Reiniciar">Reiniciar</button>
+            <button id="Jugar">Jugar</button>
             <button id="Siguiente">Siguiente</button>
         </div>
     </div>
