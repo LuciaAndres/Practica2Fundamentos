@@ -176,16 +176,6 @@
             color: white;
         }
 
-        .ladybug-theme button {
-            background-color: #000F08;
-            color: lightpink;
-            border-color: #000F08;
-        }
-
-        .ladybug-theme button:hover {
-            background-color: #FF6061;
-            color: #000F08;
-        }
         .ladybug-slider .slider:before {
             content: ""; 
             position: absolute;
@@ -229,6 +219,16 @@
         }
         .ladybug-slider input:checked + .slider{
             background-color: darkred;
+        }
+        .ladybug-theme button {
+            background-color: #000F08;
+            color: lightpink;
+            border-color: #000F08;
+        }
+
+        .ladybug-theme button:hover {
+            background-color: #FF6061;
+            color: #000F08;
         }
     </style>
 </head>
@@ -652,7 +652,7 @@
                     document.querySelector('.encabezado').style.backgroundColor = "red";
                     document.querySelector('.encabezado').style.color = "#000F08";
 
-                    document.querySelector('#cuadrado').style.backgroundColor = "black";
+                    document.querySelector('#cuadrado').style.backgroundColor = "#000F08";
                     document.querySelector('#cuadrado').style.color = "lightpink  ";
 
                     document.querySelector('#textocanvas').style.color = "lightpink  ";
@@ -661,6 +661,12 @@
                         canvas.style.backgroundColor = "red";
                         canvas.style.color = "#000F08";
                         canvas.style.borderColor = "#000F08";
+                    });
+
+                    document.querySelectorAll('button').forEach(button => {
+                        button.style.backgroundColor = "#000F08";
+                        button.style.color = "lightpink";
+                        button.style.borderColor = "#000F08";
                     });
                     // Activar la clase de tema ladybug
                     document.body.classList.add("ladybug-theme");
@@ -686,7 +692,6 @@
                         button.style.color = "#000F08";
                         button.style.borderColor = "#1C3738";
                     });
-
                     document.querySelector('.encabezado').style.backgroundColor = "#8BAAAD";
                     document.querySelector('.encabezado').style.color = "#000F08";
 
