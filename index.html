@@ -220,16 +220,6 @@
         .ladybug-slider input:checked + .slider{
             background-color: darkred;
         }
-        .ladybug-theme button {
-            background-color: #000F08;
-            color: lightpink;
-            border-color: #000F08;
-        }
-
-        .ladybug-theme button:hover {
-            background-color: #FF6061;
-            color: #000F08;
-        }
     </style>
 </head>
 <body>
@@ -648,7 +638,6 @@
                     document.body.style.backgroundColor = "#000F08";
                     document.body.style.color = "red";
                     
-                    // Cambiar el color de los elementos
                     document.querySelector('.encabezado').style.backgroundColor = "red";
                     document.querySelector('.encabezado').style.color = "#000F08";
 
@@ -663,12 +652,27 @@
                         canvas.style.borderColor = "#000F08";
                     });
 
+
                     document.querySelectorAll('button').forEach(button => {
                         button.style.backgroundColor = "#000F08";
                         button.style.color = "lightpink";
                         button.style.borderColor = "#000F08";
                     });
-                    // Activar la clase de tema ladybug
+                    document.querySelectorAll('button').forEach(button => {
+                        button.addEventListener('mouseover', () => {
+                            button.style.backgroundColor = "#FF6061";
+                            button.style.color = "#000F08";
+                            button.style.borderColor = "#FF6061";
+                        });
+
+                        button.addEventListener('mouseout', () => {
+                            button.style.backgroundColor = "#000F08";
+                            button.style.color = "lightpink";
+                            button.style.borderColor = "#000F08";
+                        });
+                    });
+
+
                     document.body.classList.add("ladybug-theme");
                 } else {
 
@@ -687,11 +691,27 @@
 
                     document.querySelector('#textocanvas').style.color = "#000F08";
 
+
                     document.querySelectorAll('button').forEach(button => {
                         button.style.backgroundColor = "#8BAAAD";
                         button.style.color = "#000F08";
                         button.style.borderColor = "#1C3738";
                     });
+                    document.querySelectorAll('button').forEach(button => {
+                        button.addEventListener('mouseover', () => {
+                            button.style.backgroundColor = "#1C3738";
+                            button.style.color = "white";
+                            button.style.borderColor = "#1C3738";
+                        });
+
+                        button.addEventListener('mouseout', () => {
+                            button.style.backgroundColor = "#8BAAAD";
+                            button.style.color = "#000F08";
+                            button.style.borderColor = "#1C3738";
+                        });
+                    });
+
+                    
                     document.querySelector('.encabezado').style.backgroundColor = "#8BAAAD";
                     document.querySelector('.encabezado').style.color = "#000F08";
 
