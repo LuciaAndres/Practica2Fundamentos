@@ -174,6 +174,50 @@
             background-color: #1C3738;
             color: white;
         }
+        .ladybug-slider .slider:before {
+            content: ""; /* Asegura que el círculo aparezca siempre */
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: black; /* Fondo negro inicial */
+            transition: 0.4s;
+            border-radius: 50%; /* Bola completamente redonda */
+        }
+        .ladybug-slider input:checked + .slider:before{
+            background-color: red; 
+            background-image: 
+                radial-gradient(circle, black 25%, transparent 26%), /* Punto central */
+                radial-gradient(circle, black 25%, transparent 26%), /* Punto superior izquierdo */
+                radial-gradient(circle, black 25%, transparent 26%), /* Punto inferior izquierdo */
+                radial-gradient(circle, black 25%, transparent 26%), /* Punto superior derecho */
+                radial-gradient(circle, black 25%, transparent 26%), /* Punto inferior derecho */
+                linear-gradient(black, black), /* Línea negra central */
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 60%); /* Gloss */
+            background-size: 
+                100% 100%, /* Tamaño del punto central */
+                70% 70%, /* Tamaño del punto superior izquierdo */
+                70% 70%, /* Tamaño del punto inferior izquierdo */
+                70% 70%, /* Tamaño del punto superior derecho */
+                70% 70%, /* Tamaño del punto inferior derecho */
+                5% 100%, /* Tamaño de la línea negra central */
+                100% 100%; /* Tamaño del gloss */
+            background-position: 
+                center,                  /* Punto central */
+                -40% -40%,               /* Punto superior izquierdo */
+                -40% 140%,               /* Punto inferior izquierdo */
+                140% -40%,               /* Punto superior derecho */
+                140% 140%,               /* Punto inferior derecho */
+                center,                  /* Línea negra central */
+                top;                     /* Posición del gloss */
+            background-repeat: no-repeat;
+            border-radius: 50%; /* Hace que la bola sea completamente redonda */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra interior para mayor profundidad */
+        }
+        .ladybug-slider input:checked + .slider{
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
@@ -210,7 +254,7 @@
                     <input type="checkbox" id="toggleGrid" checked>
                     <span class="slider"></span>
                 </label>
-                <label for="ladybugEasterEgg" class="switch">
+                <label for="ladybugEasterEgg" class="ladybug-slider switch">
                     <input type="checkbox" id="ladybugEasterEgg" unchecked>
                     <span class="slider"></span>
                 </label>
