@@ -168,6 +168,7 @@
             font-size: 16px;
             font-weight: bold;
             border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         button:hover {
@@ -175,9 +176,15 @@
             color: white;
         }
 
+        .ladybug-theme button {
+            background-color: #000F08;
+            color: lightpink;
+            border-color: #000F08;
+        }
+
         .ladybug-theme button:hover {
-            background-color: darkred; /* Rojo oscuro cuando se activa el EasterEgg */
-            color: black; /* Texto en negro */
+            background-color: #FF6061;
+            color: #000F08;
         }
         .ladybug-slider .slider:before {
             content: ""; /* Asegura que el círculo aparezca siempre */
@@ -638,17 +645,17 @@
             }
             toggleLadybugTheme() {
                 if (this.EasterEgg) {
-                    document.body.style.backgroundColor = "black";
+                    document.body.style.backgroundColor = "#000F08";
                     document.body.style.color = "red";
                     
                     // Cambiar el color de los elementos
                     document.querySelector('.encabezado').style.backgroundColor = "red";
-                    document.querySelector('.encabezado').style.color = "black";
+                    document.querySelector('.encabezado').style.color = "#000F08";
                     
                     document.querySelectorAll('.canvas-lateral, .canvas-inferior').forEach(canvas => {
                         canvas.style.backgroundColor = "red";
-                        canvas.style.color = "black";
-                        canvas.style.borderColor = "black";
+                        canvas.style.color = "#000F08";
+                        canvas.style.borderColor = "#000F08";
                     });
                     // Activar la clase de tema ladybug
                     document.body.classList.add("ladybug-theme");
@@ -656,16 +663,33 @@
                     document.body.style.backgroundColor = "#4D4847";
                     document.body.style.color = "white";
 
+                    document.querySelectorAll('button').forEach(button => {
+                        button.style.backgroundColor = "#8BAAAD";
+                        button.style.color = "#000F08";
+                        button.style.borderColor = "#1C3738";
+                    });
 
                     document.querySelector('.encabezado').style.backgroundColor = "#8BAAAD";
                     document.querySelector('.encabezado').style.color = "#000F08";
 
+                    document.querySelectorAll('button').forEach(button => {
+                        button.style.backgroundColor = "#8BAAAD";
+                        button.style.color = "#000F08";
+                        button.style.borderColor = "#1C3738";
+                    });
 
-                    document.querySelectorAll('.canvas-lateral, .canvas-inferior').forEach(canvas => {
+                    document.querySelectorAll('.canvas-lateral').forEach(canvas => {
                         canvas.style.backgroundColor = "#8BAAAD";
                         canvas.style.color = "#000F08";
                         canvas.style.borderColor = "#1C3738";
                     });
+                    document.querySelectorAll('.canvas-inferior').forEach(canvas => {
+                        canvas.style.backgroundColor = "#000F08";
+                        canvas.style.color = "white";
+                        canvas.style.borderColor = "#000F08";
+                    });
+
+                     document.body.classList.remove("ladybug-theme");
                 }
             }
 
