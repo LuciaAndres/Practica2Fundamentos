@@ -38,11 +38,14 @@ class Cell
             }
     }
 
-    changeState()
-    {
-        this.isAlive = !this.isAlive;
-        this.timeAlive = 0;
-        this.timeDead = 0;
+    changeState() {
+        if (!this.isAlive) {
+            this.isAlive = true;
+            this.timeAlive = 0;
+        } else {
+            this.isAlive = false;
+            this.timeDead = 0;
+        }
     }
 }
 
@@ -56,10 +59,13 @@ class Mundo
         this.cols = cols;
         this.matrix = this.createWorld();
         this.showGrid = true;
+        this.EasterEgg = false;
         this.isRunning = false;
         this.timer = null;
         this.fps = fps;
-
+        this.iterations = 0;
+        this.wrapAround = false;
+        
         this.canvas = document.getElementById("canvasCentral");
         this.ctx = this.canvas.getContext("2d");
 
@@ -83,6 +89,18 @@ class Mundo
 
         const gridToggleCheckbox = document.getElementById("toggleGrid");
         gridToggleCheckbox.addEventListener("change", () => this.toggleGrid());
+
+        const EasterEggCheckbox = document.getElementById("ladybugEasterEgg");
+        EasterEggCheckbox.addEventListener("change", (e) => {
+            this.EasterEgg = e.target.checked;
+            this.paintWorld(); 
+        });
+
+        const wrapAroundCheckox = document.getElementById("wrapAround");
+        wrapAroundCheckox.addEventListener("change", (e) => {
+            this.wrapAround = e.target.checked;
+            this.paintWorld();
+        });
 
         const fpsSlider = document.getElementById("fpsSlider");
         fpsSlider.addEventListener("input", (e) => this.updateFPS(e));
@@ -112,9 +130,17 @@ class Mundo
                 for (let j = 0; j < this.cols; j++) {
                     const cell  = this.matrix[i][j];
                     if(cell.isAlive){
+                        if(!this.EasterEgg){
                         this.ctx.fillStyle = '#FFFFFF';
+                        }else{
+                        this.ctx.fillStyle = 'black';
+                        }
                     } else {
-                        this.ctx.fillStyle = '#000F08';
+                        if(!this.EasterEgg){
+                            this.ctx.fillStyle = '#000F08';
+                        } else {
+                            this.ctx.fillStyle = 'red';   
+                        }
                     }
                     this.ctx.fillRect(
                         j * this.cellWidth,
@@ -125,7 +151,12 @@ class Mundo
                 }
             }
 
-            this.ctx.strokeStyle = 'black';
+            if(!this.EasterEgg){
+                this.ctx.strokeStyle = 'black';
+            }else{
+                this.ctx.strokeStyle = '#FFFFFF';
+            }
+            
             this.ctx.lineWidth = 1;
         
             //GRID
@@ -147,10 +178,21 @@ class Mundo
         }
     }
 
+    incrementCellTimer()
+    {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                const cell = this.matrix[i][j];
+                cell.incrementTimer();
+            }
+        }
+    }
+
     clearWorld()
     {
+        this.iterations = 0;
         this.matrix = this.createWorld();
-        this.paintWorld();
+        this.updateWorld();
         if(this.isRunning)
         {
             this.togglePlay();
@@ -198,6 +240,36 @@ class Mundo
         return alive;
     }
 
+    getAliveNeighboursFromMatrix(matrix, x, y) {
+        let alive = 0;
+        let newX = 0;
+        let newY = 0;
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (i === 0 && j === 0) 
+                {
+                    continue;
+                }
+                
+                if(!this.wrapAround){
+                    newX = x + i;
+                    newY = y + j;
+                } else {
+                    newX = (x + i + this.rows) % this.rows;
+                    newY = (y + j + this.cols) % this.cols;
+                }
+                    
+                if (newX >= 0 && newX < this.rows && newY >= 0 && newY < this.cols) {
+                    if (matrix[newX][newY].isAlive) {
+                        alive++;
+                    }
+                }
+            }
+        }
+        return alive;
+    }
+    
+
     updateFPS(event)
     {
         this.fps = parseInt(event.target.value);
@@ -212,15 +284,33 @@ class Mundo
 
     updateWorld()
     {
-        const newStates = this.matrix.map((row, i) => 
-            row.map((cell, j) => {
-              const aliveNeighbours = this.getAliveNeighbours(i, j);
-              const newCell = new Cell(cell.isAlive); 
-              newCell.update(aliveNeighbours); 
-              return newCell; 
-            })
-          );
-        this.matrix = newStates;
+        const originalMatrix = this.matrix.map(row => row.map(cell => ({ ...cell })));
+        let anyCellAlive = false;
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                const aliveNeighbours = this.getAliveNeighboursFromMatrix(originalMatrix, i, j);
+                this.matrix[i][j].update(aliveNeighbours);
+                if(this.matrix[i][j].isAlive)
+                {
+                    anyCellAlive = true;
+                }
+            }
+        }
+
+        if(anyCellAlive)
+            {
+                this.iterations++;
+            } else {
+                this.iterations = 0;
+            }
+
+        if(this.iterations <= 9999){
+            document.getElementById("textocanvas").textContent = `Iteraciones: ${this.iterations}`;
+        }
+        else
+        {
+            document.getElementById("textocanvas").textContent = `Iteraciones: 9999+`;
+        }
         this.paintWorld();
     }
 
@@ -252,7 +342,7 @@ class Mundo
         {
             textoOut.textContent = `Time Alive: ${cell.timeAlive}`;
         } else {
-            textoOut.textContent = `Time Alive: ${cell.timeDead}`;
+            textoOut.textContent = `Time Dead: ${cell.timeDead}`;
         }
     }
 
