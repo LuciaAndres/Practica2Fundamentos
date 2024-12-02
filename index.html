@@ -401,7 +401,7 @@
                 return matrix;
             }
 
-            //Dibuja el tablero y las células
+            //Dibuja el tablero y las células con if's para el Easter Egg
             paintWorld()
             {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -458,7 +458,7 @@
                 }
             }
 
-            incrementCellTimer()
+            incrementCellTimer() //funcion para incrementar cada particula
             {
                 for (let i = 0; i < this.rows; i++) {
                     for (let j = 0; j < this.cols; j++) {
@@ -498,7 +498,7 @@
                 this.paintWorld();
             }
 
-            getAliveNeighbours(x,y)  //Cuenta los vecinos vivos de una célula
+            getAliveNeighbours(x,y)  //Cuenta los vecinos vivos de una célula (no se usa, forma primitiva de getAliveNeighboursFromMatrix )
             {
                 let alive = 0;
                 for (let i = -1; i <=  1; i++) {
@@ -521,7 +521,7 @@
                 return alive;
             }
 
-            getAliveNeighboursFromMatrix(matrix, x, y) { //Cuenta los vecinos vivos de una célula usando una matriz
+            getAliveNeighboursFromMatrix(matrix, x, y) { //Cuenta los vecinos vivos de una célula dado una matriz
                 let alive = 0;
                 let newX = 0;
                 let newY = 0;
@@ -579,12 +579,12 @@
                 }
 
                 if(anyCellAlive)
-                    {
+                {
                         this.iterations++;
-                    } else {
+                } else {
                         this.iterations = 0;
-                    }
-
+                }
+                //Si las iteraciones superan las 9999 simplemente deja de mostrar mas cambios
                 if(this.iterations <= 9999){
                     document.getElementById("textocanvas").textContent = `Iteraciones: ${this.iterations}`;
                 }
@@ -595,7 +595,7 @@
                 this.paintWorld();
             }
 
-            togglePlay()  //Inicia/pausa el juego 
+            togglePlay()  //Inicia/pausa el juego y cambia el boton respectivamente
             {
                 const button = document.getElementById("Jugar")
                 if(this.isRunning)
