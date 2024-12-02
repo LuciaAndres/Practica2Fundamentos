@@ -414,11 +414,9 @@
                         for (let j = 0; j < this.cols; j++) {
                             const cell  = this.matrix[i][j];
                             if(cell.isAlive){
-                                if(!this.EasterEgg){
-                                this.ctx.fillStyle = '#FFFFFF';
-                                }else{
+                            
                                 this.ctx.fillStyle = 'black';
-                                }
+                            
                             } else {
                                 if(!this.EasterEgg){
                                     this.ctx.fillStyle = 'lightgrey';
